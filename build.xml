@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<project name="Number Guessing Game project" basedir="."
+	default="info">
+	<property file="maxrange.properties" />
+	<property name="src.dir" location="src" /> 
+	<property name="jar.dir" location="numjar" />
+	<property name="build.dir" location="bin" />
+	<property name="name" location="numgame" />
+	<property name="test.dir" location="tests" />
+	<property name="build.test.dir" location="bin/tests" /> 
+	<property name="test.report.dir" location="testreport" /> 
+	<target name="info">
+		<echo>Guess a Correct Number Using Binary Search Algorithm</echo> 
+		<echo>Apache Ant version is ${ant.version} </echo>
+	</target>
+	
+	<!-- Junit runtime library path  -->
+	 	
+	<path id="junit.class.path">
+	   <pathelement location="lib/junit-4.10.jar" />
+	   <pathelement location="${build.dir}" />
+	</path>
+	
+	<!-- Compile all source files  -->
+	
+	<target name="build" description="Compile main source ava files"
+		depends="clean">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${jar.dir}" />
+		<mkdir dir="${build.test.dir}" />
+		<mkdir dir="${test.report.dir}" />
+		
+		<javac destdir="${build.dir}" source="1.7" target="1.7" debug="true"
+			deprecation="false" optimize="false" failonerror="true">
+			<src path="${src.dir}" />
+		</javac>
+		
+		<javac srcdir="${test.dir}" destdir="${build.test.dir}" source="1.7" target="1.7" debug="true"
+			deprecation="false" optimize="false" failonerror="true">
+		    <classpath refid="junit.class.path" />
+		</javac>	
+	 		
+	</target>
+	
+	<!-- Cleanup prior to a new build  -->
+	 	
+	<target name="clean" description="Clean output directories">
+		<delete>
+			<fileset dir="${build.dir}">
+				<include name="*.class" />
+			</fileset>
+			
+		</delete>
+		<delete dir="${docs.dir}" />
+		<delete dir="${jar.dir}" />
+		<delete dir="${test.report.dir}" />
+	</target>
+	
+	<!--Generate jar file  NumberGame.jar  -->
+		
+	<target name="build-jar" depends="build">
+		<jar destfile="${jar.dir}/numgame.jar" basedir="${build.dir}"
+			includes="com/pant/numgame/**">
+			<manifest>
+				<attribute name="Main-Class" value="com.pant.numgame.NumberGame" />
+			</manifest>
+		</jar>
+	</target>
+	
+	
+	<!--Run the application  -->
+	
+	<target name="runme" description="run number guessing game"
+		depends="build-jar">
+		<java classname="com.pant.numgame.NumberGame">
+			<classpath>
+				<pathelement location="${jar.dir}/numgame.jar" />
+			</classpath>
+		</java>
+	</target>
+	
+	<!--Run jUnit test Generate a report file /testreport/TEST-CorrectNumberCheckerTest  -->
+	
+	<target name="junit" depends="build">
+	  <junit printsummary="on" fork="true" haltonfailure="yes"> 
+	    <classpath refid="junit.class.path" />
+		<classpath>
+		  <pathelement location="${build.test.dir}"/>
+		</classpath>
+		<formatter type="xml" />
+		<batchtest todir="${test.report.dir}">
+		   <fileset dir="${test.dir}">
+		       <include name="**/*Test*.java" />
+			</fileset>
+		</batchtest>
+		</junit>
+	</target>	
+  </project>
