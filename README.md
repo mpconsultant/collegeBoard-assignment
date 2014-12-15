@@ -50,7 +50,7 @@ This command will run jUnit test and will generate an XML test report file at lo
 3.To generate jar file only and run it standalone outside of ant ,execute following command
 
 ==========================================================================================================
-ant deploy
+ant build-jar
 
 java -jar /numjar/numgame.jar
 
