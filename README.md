@@ -47,9 +47,11 @@ ant junit
 This command will run jUnit test and will generate an XML test report file at location testreport/TEST-CorrectNumberCheckerTest
 
 
-3.To run jar file as standalone outside of ant ,execute following command
+3.To generate jar file only and run it standalone outside of ant ,execute following command
 
 ==========================================================================================================
+ant deploy
+
 java -jar /numjar/numgame.jar
 
 ==========================================================================================================
