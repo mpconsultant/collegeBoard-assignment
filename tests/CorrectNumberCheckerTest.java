@@ -30,7 +30,7 @@ public class CorrectNumberCheckerTest  {
 
    // Each parameter should be placed as an argument here
    // Every time runner triggers, it will pass the arguments
-   // from parameters we defined in primeNumbers() method
+   // from parameters we defined in randomTestNumbers() method
    
    GuessSecretNum  messageUtil = new GuessSecretNum ();
    public CorrectNumberCheckerTest(Integer inputNumber, 
@@ -42,7 +42,7 @@ public class CorrectNumberCheckerTest  {
 		   } 
  
    @Parameterized.Parameters
-   public static Collection primeNumbers() {  
+   public static Collection randomTestNumbers() {  
 	   Random rand = new Random();
        int randomNum = rand.nextInt((max - min) + 1) + min;
        Integer intObj = new Integer(randomNum );
